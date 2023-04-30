@@ -3,6 +3,7 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,22 @@ public class ToDoService {
 	public void addTodo(String username, String description, LocalDate date, boolean done) {
 		ToDo toDo = new ToDo(++todosCount, username, description, date, done);
 		toDos.add(toDo);
+	}
+	
+	public void deleteById(int id) {
+        Predicate<? super ToDo> predicate = todo -> todo.getId() == id;
+		toDos.removeIf(predicate);
+	}
+
+	public void showUpdateToDo(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ToDo findById(int id) {
+		// TODO Auto-generated method stub
+		Predicate<? super ToDo> predicate = todo -> todo.getId() == id;
+		return toDos.stream().filter(predicate).findFirst().get();
 	}
 
 }
